@@ -10,7 +10,7 @@ import ContactDetail from "./ContactDetail";
 import EditContact from "./EditContact";
 
 function App() {
-  const LOCAL_STORAGE_KEY = "contacts";
+  //const LOCAL_STORAGE_KEY = "contacts"; //i moved the database to the cloud (MockAPI) instead of using in local db.json
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -34,7 +34,7 @@ function App() {
 
   const updateContactHandler = async (contact) => {
     const response = await api.put(`/contacts/${contact.id}`, contact);
-    const { id, name, email } = response.data;
+    const { id } = response.data;
     setContacts(
       contacts.map((contact) => {
         return contact.id === id ? { ...response.data } : contact;
@@ -61,7 +61,7 @@ function App() {
           .includes(searchTerm.toLocaleLowerCase());
       });
       setSearchResults(newContactList);
-    } else{
+    } else {
       setSearchResults(contacts);
     }
   };
